@@ -24,60 +24,31 @@ const batch = [valid1, valid2, valid3, valid4, valid5, invalid1, invalid2, inval
 
 
 // Add your functions below:
-function validateCred(array){
-  const a = (array.length)-1
-  let total = 0;
-  let doubler = 0;
-  const begin1 = (array.length)-1;
-  const begin2 = (array.length)-2
-  for (j=begin1; j > -1; j-=2) {
-    total += array[j]
-  }//this loop sum those numbers that wont be doubled.
-  for (i=begin2; i > -1; i-=2){
-doubler = 2*array[i]
-    total += 2*array[i]
-    if (doubler > 9){
-      total -= 9;
-    } // this loop handles those numbers that will be doubled.
+const validateCred = arr => {
 
-  }
-  if (total % 10===0){
-    return true
-  } else{
-    return false
-  }
-}
-
-function makeValid(array){
-  const a = (array.length)-1
-  let total = 0;
-  let doubler = 0;
-  const begin1 = (array.length)-1;
-  const begin2 = (array.length)-2
-  for (j=begin1; j > -1; j-=2) {
-    total += array[j]
-  }//this loop sum those numbers that wont be doubled.
-  for (i=begin2; i > -1; i-=2){
-doubler = 2*array[i]
-    total += 2*array[i]
-    if (doubler > 9){
-      total -= 9;
-    } // this loop handles those numbers that will be doubled.
-
-  }
-  let deficitValue = 10-(total%10)*10;
-  if (total % 10!==0){
-    for (x=begin1; x > -1; x-=2){
-      if(deficitValue < 6 || array[x] < 5) {
-        array[x] = array[x]+deficitValue
-      }
-    }
+  //reversedArray = arr.sort((a, b) => b - a)
+  reversedArray = arr.reverse()
+  //console.log(reversedArray)
+ const arrToCheck = reversedArray.map((num, indx) => {
+   let even = (indx %  2) === 0;
+   let doubledNum = num * 2;
+   let greaterThanNine = num * 2 > 9;
    
-  }  return array
+   /*even ? console.log(true) : console.log(false)
+   even ? greaterThanNine ?  console.log(doubledNum - 9, true) :  console.log(doubledNum,)  :  console.log(num) */
+
+  return !even ? greaterThanNine ?  doubledNum - 9 :  doubledNum  :  num
+ } )
+ 
+ const summed = arrToCheck.reduce((acc, curVal) => {
+   return acc + curVal;
+ })
+  return summed;
 }
 
-console.log(validateCred(batch[0]))
-console.log(makeValid(validateCred(batch[0])))
+
+console.log(validateCred(ibnum))
+console.log(validateCred(invalid1))
 
 
 
